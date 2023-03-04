@@ -6,6 +6,7 @@
 #include <pthread.h>
 #include <time.h>
 #include <sys/time.h>
+#include "pro_manage.h"//商品信息
 
 #define DISP_BUF_SIZE (480 * 1024)
 
@@ -44,7 +45,12 @@ int main(void)
 
 
     //官方demo---可以换为自己的demo
-    lv_demo_widgets();
+    //lv_demo_widgets();
+    Pro_BrowerCreate xxx()
+
+
+
+
  
     /*事物处理及告知lvgl节拍数*/
     while(1) {
