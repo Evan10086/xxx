@@ -91,7 +91,7 @@ bool evdev_set_file(char* dev_name)
 #if USE_BSD_EVDEV
      fcntl(evdev_fd, F_SETFL, O_NONBLOCK);
 #else
-     fcntl(evdev_fd, F_SETFL, O_ASYNC | O_NONBLOCK);
+     fcntl(evdev_fd, F_SETFL, O_ASYNC | O_NONBLOCK);//设置文件描述符对应文件读取非阻塞
 #endif
 
      evdev_root_x = 0;

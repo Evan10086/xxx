@@ -1,0 +1,4 @@
+coca 3.5 15 S:/pic/1.png
+pensi 4 10 S:/pic/2.png
+fenda 3 12 S:/pic/3.png
+meiziyuan 5 8 S:/pic/4.png
