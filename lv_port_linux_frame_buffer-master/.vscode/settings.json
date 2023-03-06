@@ -1,0 +1,13 @@
+{
+    "files.associations": {
+        "evdev.h": "c",
+        "lv_examples.h": "c",
+        "lv_freetype.h": "c",
+        "lv_demos.h": "c",
+        "lvgl.h": "c",
+        "unistd.h": "c",
+        "time.h": "c",
+        "pthread.h": "c",
+        "list.h": "c"
+    }
+}
