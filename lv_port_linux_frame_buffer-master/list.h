@@ -2,25 +2,25 @@
 #include <stdbool.h>
 
 #ifndef DATATYPE
-#define DATATYPE int  //±£Ö¤DATATYPEºêÃ»¶¨Òå  ÔÚÕâÀï±àÒë²»»á³ö´í ¸ø¸öÄ¬ÈÏÀàĞÍ
+#define DATATYPE int  //ä¿è¯DATATYPEå®æ²¡å®šä¹‰  åœ¨è¿™é‡Œç¼–è¯‘ä¸ä¼šå‡ºé”™ ç»™ä¸ªé»˜è®¤ç±»å‹
 #endif
 
 
 typedef DATATYPE datatype;
 
-//Í¨ÓÃĞÍÁ´±í½ÚµãÀàĞÍ¶¨Òå
+//é€šç”¨å‹é“¾è¡¨èŠ‚ç‚¹ç±»å‹å®šä¹‰
 typedef struct node
 {
-    //Êı¾İÓò
+    //æ•°æ®åŸŸ
     datatype data;
 
-    //Ö¸ÕëÓò
+    //æŒ‡é’ˆåŸŸ
     struct node *next;
     struct node *prev;
 
 }ListNode;
 
-//¿Õ±í´´½¨
+//ç©ºè¡¨åˆ›å»º
 static ListNode *List_init(void)
 {
     ListNode *head = malloc(sizeof(ListNode));
@@ -29,7 +29,7 @@ static ListNode *List_init(void)
     return head;
 }
 
-//°ÑNewNode²åÈëµ½p1ºÍp2Ö®¼ä
+//æŠŠNewNodeæ’å…¥åˆ°p1å’Œp2ä¹‹é—´
 static void __NodeInsert(ListNode *p1,ListNode *p2,ListNode *NewNode)
 {
     p1->next = NewNode;
@@ -38,23 +38,23 @@ static void __NodeInsert(ListNode *p1,ListNode *p2,ListNode *NewNode)
     NewNode->prev = p1;   
 }
 
-//°Ñp1ºÍp2Ö®¼äµÄ½ÚµãÒÆ³ıµÄÁ´Ê½¹ØÏµ´¦Àí
+//æŠŠp1å’Œp2ä¹‹é—´çš„èŠ‚ç‚¹ç§»é™¤çš„é“¾å¼å…³ç³»å¤„ç†
 static void __NodeDelete(ListNode *p1,ListNode *p2)
 {
     p1->next = p2;
     p2->prev = p1;
 }
 
-//Í·²å
+//å¤´æ’
 static int List_HeadInsert(ListNode *head,datatype dat)
 {
-    //ÏÈÅĞ¶Ï´«ÈëµÄÍ·Ö¸ÕëÊÇ·ñÓĞĞ§
+    //å…ˆåˆ¤æ–­ä¼ å…¥çš„å¤´æŒ‡é’ˆæ˜¯å¦æœ‰æ•ˆ
     if(head == NULL)
     {
         return -1;
     }
 
-    //¸øĞÂ½Úµã·ÖÅä¿Õ¼ä
+    //ç»™æ–°èŠ‚ç‚¹åˆ†é…ç©ºé—´
     ListNode *NewNode =malloc(sizeof(ListNode));
     if(NewNode == NULL)
     {
@@ -62,24 +62,24 @@ static int List_HeadInsert(ListNode *head,datatype dat)
         return -2;
     }
 
-    //´¦ÀíĞÂ½ÚµãµÄÊı¾İÓò
+    //å¤„ç†æ–°èŠ‚ç‚¹çš„æ•°æ®åŸŸ
     NewNode->data = dat;
 
-    //´¦ÀíĞÂ½ÚµãµÄÖ¸ÕëÓò
+    //å¤„ç†æ–°èŠ‚ç‚¹çš„æŒ‡é’ˆåŸŸ
     __NodeInsert(head,head->next,NewNode);
-    return 0;//³É¹¦
+    return 0;//æˆåŠŸ
 }
 
-//Î²²å
+//å°¾æ’
 static int List_TailInsert(ListNode *head,datatype dat)
 {
-    //ÏÈÅĞ¶Ï´«ÈëµÄÍ·Ö¸ÕëÊÇ·ñÓĞĞ§
+    //å…ˆåˆ¤æ–­ä¼ å…¥çš„å¤´æŒ‡é’ˆæ˜¯å¦æœ‰æ•ˆ
     if(head == NULL)
     {
         return -1;
     }
 
-    //¸øĞÂ½Úµã·ÖÅä¿Õ¼ä
+    //ç»™æ–°èŠ‚ç‚¹åˆ†é…ç©ºé—´
     ListNode *NewNode =malloc(sizeof(ListNode));
     if(NewNode == NULL)
     {
@@ -87,16 +87,16 @@ static int List_TailInsert(ListNode *head,datatype dat)
         return -2;
     }
 
-    //´¦ÀíĞÂ½ÚµãµÄÊı¾İÓò
+    //å¤„ç†æ–°èŠ‚ç‚¹çš„æ•°æ®åŸŸ
     NewNode->data = dat;
 
-    //´¦ÀíĞÂ½ÚµãµÄÖ¸ÕëÓò
+    //å¤„ç†æ–°èŠ‚ç‚¹çš„æŒ‡é’ˆåŸŸ
     __NodeInsert(head->prev,head,NewNode);
-    return 0;//³É¹¦
+    return 0;//æˆåŠŸ
 
 }
 
-//±éÀú
+//éå†
 static void List_Traval(ListNode *head,void (*handler)(datatype),char dir)
 {
     ListNode *p;
@@ -118,19 +118,19 @@ static void List_Traval(ListNode *head,void (*handler)(datatype),char dir)
     }
 }
 
-//°´Ìõ¼ş²éÕÒ½Úµã
+//æŒ‰æ¡ä»¶æŸ¥æ‰¾èŠ‚ç‚¹
 static ListNode *List_FindNode(ListNode *head,datatype data,bool (*cmp)(datatype,datatype))
 {
-    ListNode *p=head->next;//´ÓµÚÒ»¸öÓĞĞ§½Úµã¿ªÊ¼
+    ListNode *p=head->next;//ä»ç¬¬ä¸€ä¸ªæœ‰æ•ˆèŠ‚ç‚¹å¼€å§‹
 
     for(;p!=head;p=p->next)
     {
-        if(cmp(data,p->data))//µ÷ÓÃ´«ÈëµÄ»Øµ÷º¯ÊıÊµÏÖÌõ¼şÊı¾İºÍµ±Ç°½ÚµãÊı¾İµÄ±È¶Ô
+        if(cmp(data,p->data))//è°ƒç”¨ä¼ å…¥çš„å›è°ƒå‡½æ•°å®ç°æ¡ä»¶æ•°æ®å’Œå½“å‰èŠ‚ç‚¹æ•°æ®çš„æ¯”å¯¹
         {
-            return p;//ÕÒµ½ÁË
+            return p;//æ‰¾åˆ°äº†
         } 
     }
-    return NULL;//±íÊ¾Ã»ÕÒµ½
+    return NULL;//è¡¨ç¤ºæ²¡æ‰¾åˆ°
 }
 
 
