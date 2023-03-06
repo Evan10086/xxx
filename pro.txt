@@ -1,4 +1,6 @@
-coca 3.5 15 S:/pic/1.png
-pensi 4 10 S:/pic/2.png
-fenda 3 12 S:/pic/3.png
-meiziyuan 5 8 S:/pic/4.png
+Cola 3.5 30 S:/pic/1.png
+Pepsi 4 33 S:/pic/2.png
+Fender 3 44 S:/pic/3.png
+Minute Maid 5 20 S:/pic/4.png
+Dr. Pepper 6 25 S:/pic/5.png
+Nescafe 6 27 S:/pic/6.png
