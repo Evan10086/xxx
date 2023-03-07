@@ -1,6 +1,27 @@
-Cola 3.5 9 S:/pic/1.png
-Pepsi 4 9 S:/pic/2.png
-Fender 3 9 S:/pic/3.png
-Minute_Maid 5 9 S:/pic/4.png
-Dr_Pepper 6 9 S:/pic/5.png
-Nescafe 6 9 S:/pic/6.png
+Cola 3.5 9 S:/pic/1.png 1
+Pepsi 4 9 S:/pic/2.png 2
+Fender 3 9 S:/pic/3.png 3
+Minute_Maid 5 9 S:/pic/4.png 4
+Dr_Pepper 6 9 S:/pic/5.png 5
+Nescafe 6 9 S:/pic/6.png 6
+Chips 6 5 S:/pic/50.png 50
+Popcorn 6 5 S:/pic/51.png 51
+Nuts 6 5 S:/pic/53.png 53
+Chocolate 6 5 S:/pic/54.png 54
+Cookies 6 5 S:/pic/55.png 55
+Candy 6 5 S:/pic/56.png 56
+Granola_bars 6 5 S:/pic/57.png 57
+Jerky 6 5 S:/pic/58.png 58
+Crackers 6 5 S:/pic/59.png 59
+Rice_cakes 6 5 S:/pic/60.png 60
+Trail_mix 6 5 S:/pic/61.png 61
+Gummy_bears 6 5 S:/pic/62.png 62
+Cheese_puffs 6 5 S:/pic/63.png 63
+
+Charmin 15 5 S:/pic/100.png 100
+Cottonelle 15 5 S:/pic/101.png 101
+Angel_Soft 15 5 S:/pic/103.png 103
+Brawny 15 5 S:/pic/104.png 104
+Viva 15 5 S:/pic/105.png 105
+Kleenex 15 5 S:/pic/106.png 106
+Puffs 15 5 S:/pic/107.png 107
