@@ -107,22 +107,82 @@ void Pro_Buy(lv_event_t *e)
     lv_obj_set_size(pro2,600,400);
     lv_obj_set_align(pro2,LV_ALIGN_BOTTOM_MID);
 
-
     // //pay图片
     lv_obj_t *pay_pic = lv_img_create(pro2);
     lv_img_set_zoom(pay_pic,380);
     lv_img_set_src(pay_pic,"S:/pic/pay.png");
     lv_obj_align(pay_pic,LV_ALIGN_LEFT_MID,70,-20);//左中
 
+    //显示信息的画布1
+    lv_obj_t *Board = lv_obj_create(pro2);
+    lv_obj_set_size(Board,140,100);
+    lv_obj_set_style_border_opa(Board,0,LV_STATE_DEFAULT);
+    lv_obj_align(Board,LV_ALIGN_RIGHT_MID,-30,45);
+    lv_obj_clear_flag(Board,LV_OBJ_FLAG_SCROLLABLE);
+
+
     //Have a great day!
     lv_obj_t *greatday_txt = lv_label_create(pro2);// 创建标签对象
     lv_label_set_text(greatday_txt, "Have a great day!!!I wish you to be rich!!!!!");// 设置标签对象的文本内容
     lv_obj_set_align(greatday_txt,LV_ALIGN_TOP_MID); // 将标签对象居中对齐
+    //商品ID
+    lv_obj_t *id_txt = lv_label_create(Board);// 创建标签对象
+    lv_label_set_text_fmt(id_txt,"%d",((ListNode *)(e->user_data))->data.pro_id);// 设置标签对象的文本内容
+    lv_obj_align(id_txt,LV_ALIGN_LEFT_MID,0,-30); // 将标签对象右中
+    //购买商品 Purchase of goods
+    lv_obj_t *Purchase_txt = lv_label_create(Board);// 创建标签对象
+    lv_label_set_text(Purchase_txt, ((ListNode *)(e->user_data))->data.pro_name);// 设置标签对象的文本内容
+    lv_obj_align(Purchase_txt,LV_ALIGN_LEFT_MID,0,-10); // 将标签对象右中
+    //商品价格
+    lv_obj_t *price_txt = lv_label_create(Board);// 创建标签对象
+    lv_label_set_text_fmt(price_txt,"%.2f",((ListNode *)(e->user_data))->data.pro_price);// 设置标签对象的文本内容
+    lv_obj_align(price_txt,LV_ALIGN_LEFT_MID,0,10); // 将标签对象右中
+    //商品余量
+    lv_obj_t *num_txt = lv_label_create(Board);// 创建标签对象
+    lv_label_set_text_fmt(num_txt, "%d",((ListNode *)(e->user_data))->data.pro_num);// 设置标签对象的文本内容
+    lv_obj_align(num_txt,LV_ALIGN_LEFT_MID,0,30); // 将标签对象右中
 
-    
-    
 
-    //
+
+    //显示信息的画布2!!!
+    lv_obj_t *Board2 = lv_obj_create(pro2);
+    lv_obj_set_size(Board2,130,100);
+    lv_obj_set_style_border_opa(Board2,0,LV_STATE_DEFAULT);
+    lv_obj_align(Board2,LV_ALIGN_RIGHT_MID,-160,45);
+    lv_obj_clear_flag(Board2,LV_OBJ_FLAG_SCROLLABLE);
+    //一些信息
+    lv_obj_t *inf1_txt = lv_label_create(Board2);// 创建标签对象
+    lv_label_set_text(inf1_txt, "Product ID:");// 设置标签对象的文本内容
+    lv_obj_align(inf1_txt,LV_ALIGN_LEFT_MID,0,-30); 
+
+    lv_obj_t *inf2_txt = lv_label_create(Board2);// 创建标签对象
+    lv_label_set_text(inf2_txt, "Product Name:");// 设置标签对象的文本内容
+    lv_obj_align(inf2_txt,LV_ALIGN_LEFT_MID,0,-10); 
+
+    lv_obj_t *inf3_txt = lv_label_create(Board2);// 创建标签对象
+    lv_label_set_text(inf3_txt, "Product Price:");// 设置标签对象的文本内容
+    lv_obj_align(inf3_txt,LV_ALIGN_LEFT_MID,0,10); 
+
+    lv_obj_t *inf4_txt = lv_label_create(Board2);// 创建标签对象
+    lv_label_set_text(inf4_txt, "Remain:");// 设置标签对象的文本内容
+    lv_obj_align(inf4_txt,LV_ALIGN_LEFT_MID,0,30);
+
+
+    //显示信息的画布3!!!
+    lv_obj_t *Board3 = lv_obj_create(pro2);
+    lv_obj_set_size(Board3,110,110);
+    lv_obj_set_style_border_opa(Board3,0,LV_STATE_DEFAULT);
+    lv_obj_align(Board3,LV_ALIGN_RIGHT_MID,-130,-65);
+    lv_obj_clear_flag(Board3,LV_OBJ_FLAG_SCROLLABLE);
+
+    lv_obj_t * imgx = lv_img_create(Board3);
+    lv_img_set_src(imgx,((ListNode *)(e->user_data))->data.pro_pic);
+    lv_obj_set_align(imgx,LV_ALIGN_CENTER);  
+
+
+
+
+
 
     //商品购物完毕界面--显示已结算图片
 
@@ -147,15 +207,6 @@ void Pro_Buy(lv_event_t *e)
         lv_label_set_text(pay_txt, "Already paid");// 设置标签对象的文本内容
         lv_obj_set_align(pay_txt,LV_ALIGN_CENTER); // 将标签对象居中对齐
         //lv_obj_add_event_cb(btn_exit,BTN_EXIT_cb,LV_EVENT_PRESSED,(void *)AP);//传入AP目的是为了进入第三个界面
-
-        
-       
-
-        
-
-
-
-
 
     printf("购买商品:%s\n",((ListNode *)(e->user_data))->data.pro_name);
     printf("价格:%.1f\n",((ListNode *)(e->user_data))->data.pro_price);
@@ -239,7 +290,7 @@ void Pro_BrowerCreate(void)
                 lv_obj_clear_flag(pro1,LV_OBJ_FLAG_SCROLLABLE);//清除可滚动--里面内容过多的情况下自动生成滚动条-这里是取消
                 //lv_obj_align(pro1,LV_ALIGN_TOP_LEFT,0,0);//边角有弧度 背景白色
                 //lv_obj_set_style_bg_color(pro1,lv_color_hex(0x00FF0000),LV_STATE_DEFAULT);//设置pro1对象默认状态下背景颜色为红色
-                lv_obj_add_event_cb(pro1,Pro_Buy,LV_EVENT_SHORT_CLICKED,(void *)p);//设置短按调用回调函数Pro_Buy()
+                lv_obj_add_event_cb(pro1,Pro_Buy,LV_EVENT_CLICKED,(void *)p);//设置短按调用回调函数Pro_Buy()
                 //创建一个显示商品名的标签
                 lv_obj_t *proname = lv_label_create(pro1);
                 lv_label_set_text(proname,p->data.pro_name);
