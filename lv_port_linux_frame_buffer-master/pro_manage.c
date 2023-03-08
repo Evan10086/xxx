@@ -85,6 +85,20 @@ static void scroll_begin_event(lv_event_t * e)
 /*********************************************************************************************************/
 
 //按下结算按钮--调用回调函数
+void Pay_cb(lv_event_t *e){
+    lv_obj_del((lv_obj_t *)(e->user_data));//删除外面的pro2对象
+    lv_obj_t *paid = lv_obj_create(lv_scr_act());  //创建一个新的界面
+    lv_obj_set_size(paid,610,410);
+    lv_obj_align(paid,LV_ALIGN_CENTER,0,0);
+
+    lv_obj_t *pay_img = lv_img_create(paid);
+    //lv_img_set_zoom(pay_pic,380);
+    lv_img_set_src(pay_img,"S:/pic/paid.png");
+    lv_obj_align(pay_img,LV_ALIGN_CENTER,0,0);
+    lv_obj_clear_flag(pay_img,LV_OBJ_FLAG_SCROLLABLE);
+
+
+}
 
 //按下退出按钮--调用回调函数
 void BTN_EXIT_cb(lv_event_t *e)
@@ -196,17 +210,24 @@ void Pro_Buy(lv_event_t *e)
         //lv_style_set_border_opa(btn_exit,LV_OPA_0);//透明度？？
 
 
-        //假如已结算
-        lv_obj_t *pay = lv_btn_create(pro2);
-        lv_obj_set_size(pay,130,60);
-        lv_obj_set_style_bg_color(pay, lv_color_hex(0x00FFB6C1), LV_PART_MAIN);//颜色
-        lv_obj_set_style_radius(pay, LV_PCT(20), LV_PART_MAIN);//圆弧
-        lv_obj_set_align(pay,LV_ALIGN_BOTTOM_MID);//下面
+        //假如已结算--结算按钮
+        lv_obj_t *btn_pay = lv_btn_create(pro2);
+        lv_obj_set_size(btn_pay,130,60);
+        lv_obj_set_style_bg_color(btn_pay, lv_color_hex(0x00FFB6C1), LV_PART_MAIN);//颜色
+        lv_obj_set_style_radius(btn_pay, LV_PCT(20), LV_PART_MAIN);//圆弧
+        lv_obj_set_align(btn_pay,LV_ALIGN_BOTTOM_MID);//下面
         // 创建一个 lv_label 对象，并将其添加到 pay 按钮中
-        lv_obj_t *pay_txt = lv_label_create(pay);// 创建标签对象
+        lv_obj_t *pay_txt = lv_label_create(btn_pay);// 创建标签对象
         lv_label_set_text(pay_txt, "Already paid");// 设置标签对象的文本内容
         lv_obj_set_align(pay_txt,LV_ALIGN_CENTER); // 将标签对象居中对齐
-        //lv_obj_add_event_cb(btn_exit,BTN_EXIT_cb,LV_EVENT_PRESSED,(void *)AP);//传入AP目的是为了进入第三个界面
+        lv_obj_add_event_cb(btn_pay,Pay_cb,LV_EVENT_PRESSED,(void *)pro2);
+
+        
+
+
+
+
+
 
     printf("购买商品:%s\n",((ListNode *)(e->user_data))->data.pro_name);
     printf("价格:%.1f\n",((ListNode *)(e->user_data))->data.pro_price);
