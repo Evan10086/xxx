@@ -182,7 +182,7 @@ void lv_obj_align(struct _lv_obj_t * obj, lv_align_t align, lv_coord_t x_ofs, lv
 /**
  * Align an object to an other object.
  * @param obj       pointer to an object to align
- * @param base      pointer to an other object (if NULL `obj`s parent is used). 'obj' will be aligned to it.
+ * @param base      指向其他对象的指针（如果使用NULL `obj`s parent）。'obj'将与它对齐。
  * @param align     type of alignment (see 'lv_align_t' enum)
  * @param x_ofs     x coordinate offset after alignment
  * @param y_ofs     y coordinate offset after alignment

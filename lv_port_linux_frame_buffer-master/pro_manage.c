@@ -85,18 +85,14 @@ static void scroll_begin_event(lv_event_t * e)
 /*********************************************************************************************************/
 
 //按下结算按钮--调用回调函数
-// void BTN_PAY_cb(lv_event_t *e){
-//     lv_obj_t *done = 
-// }
 
 //按下退出按钮--调用回调函数
-
 void BTN_EXIT_cb(lv_event_t *e)
 {
     //(lv_obj_t *)(e->user_data)
-    lv_obj_del((lv_obj_t *)(e->user_data));//删除外面的pro1对象
-    
+    lv_obj_del((lv_obj_t *)(e->user_data));//删除外面的pro1对象  
 }
+
 
 //按下了对应的商品图标--调用回调函数
 void Pro_Buy(lv_event_t *e)
@@ -106,19 +102,39 @@ void Pro_Buy(lv_event_t *e)
     lv_obj_set_style_bg_color(pro1,lv_color_hex(0x00000000),LV_STATE_DEFAULT);
     lv_obj_set_style_bg_opa(pro1,50,LV_STATE_DEFAULT);
 
-    //商品购物车界面--在里面包好退出和结算
+    //商品购物界面--在里面包好退出和结算
     lv_obj_t *pro2 = lv_obj_create(pro1);//NULL--无父对象 默认不显示 需要手动用函数加载  lv_scr_act()--当前活跃屏幕  默认显示
     lv_obj_set_size(pro2,600,400);
     lv_obj_set_align(pro2,LV_ALIGN_BOTTOM_MID);
 
+
+    // //pay图片
+    lv_obj_t *pay_pic = lv_img_create(pro2);
+    lv_img_set_zoom(pay_pic,380);
+    lv_img_set_src(pay_pic,"S:/pic/pay.png");
+    lv_obj_align(pay_pic,LV_ALIGN_LEFT_MID,70,-20);//左中
+
+    //Have a great day!
+    lv_obj_t *greatday_txt = lv_label_create(pro2);// 创建标签对象
+    lv_label_set_text(greatday_txt, "Have a great day!!!I wish you to be rich!!!!!");// 设置标签对象的文本内容
+    lv_obj_set_align(greatday_txt,LV_ALIGN_TOP_MID); // 将标签对象居中对齐
+
+    
+    
+
+    //
+
+    //商品购物完毕界面--显示已结算图片
+
         //在pro2下再搞2个按钮  一个退出  一个是结算
         //退出界面
-        lv_obj_t * btn_exit = lv_imgbtn_create(pro2);
+        lv_obj_t *btn_exit = lv_imgbtn_create(pro2);
         lv_imgbtn_set_src(btn_exit,_LV_IMGBTN_STATE_NUM,"S:/pic/close1.png",NULL,NULL);
         lv_obj_set_size(btn_exit,50,50);//设置按钮对象大小
         lv_obj_set_align(btn_exit,LV_ALIGN_TOP_RIGHT);//右上角
         lv_obj_add_event_cb(btn_exit,BTN_EXIT_cb,LV_EVENT_PRESSED,(void *)pro1);//传入pro1目的是为了在里面删除pro1整个对象
         //lv_style_set_border_opa(btn_exit,LV_OPA_0);//透明度？？
+
 
         //假如已结算
         lv_obj_t *pay = lv_btn_create(pro2);
@@ -127,6 +143,11 @@ void Pro_Buy(lv_event_t *e)
         lv_obj_set_style_radius(pay, LV_PCT(20), LV_PART_MAIN);//圆弧
         lv_obj_set_align(pay,LV_ALIGN_BOTTOM_MID);//下面
         // 创建一个 lv_label 对象，并将其添加到 pay 按钮中
+        lv_obj_t *pay_txt = lv_label_create(pay);// 创建标签对象
+        lv_label_set_text(pay_txt, "Already paid");// 设置标签对象的文本内容
+        lv_obj_set_align(pay_txt,LV_ALIGN_CENTER); // 将标签对象居中对齐
+        //lv_obj_add_event_cb(btn_exit,BTN_EXIT_cb,LV_EVENT_PRESSED,(void *)AP);//传入AP目的是为了进入第三个界面
+
         
        
 
