@@ -14,6 +14,10 @@ typedef struct
 #define DATATYPE pro
 #include "list.h"
 
+lv_obj_t* p1 = NULL;
+lv_obj_t* p2 = NULL;
+
+
 
 //遍历的回调函数
 void  traval_name(datatype arg)
@@ -84,12 +88,33 @@ static void scroll_begin_event(lv_event_t * e)
 
 /*********************************************************************************************************/
 
+//按下第二层结算&&退出按键
+void Paid_cb(lv_event_t *e){
+
+    printf("购买商品:%s\n",((ListNode *)(e->user_data))->data.pro_name);
+    printf("价格:%.1f\n",((ListNode *)(e->user_data))->data.pro_price);
+    printf("余量:%d\n",((ListNode *)(e->user_data))->data.pro_num);
+    printf("商品ID:%d\n",((ListNode *)(e->user_data))->data.pro_id);
+
+    ((ListNode *)(e->user_data))->data.pro_num--;
+    
+    lv_obj_del(p1);//删除外面的pro1对象 
+    
+}
+
 //按下结算按钮--调用回调函数
 void Pay_cb(lv_event_t *e){
-    lv_obj_del((lv_obj_t *)(e->user_data));//删除外面的pro2对象
-    lv_obj_t *paid = lv_obj_create(lv_scr_act());  //创建一个新的界面
-    lv_obj_set_size(paid,610,410);
+    lv_obj_del(p2);//删除外面的pro2对象
+
+    p1 = lv_obj_create(lv_scr_act());//创建一个新半透明的界面
+    lv_obj_set_size(p1,800,480);
+    lv_obj_set_style_bg_color(p1,lv_color_hex(0x00000000),LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_opa(p1,50,LV_STATE_DEFAULT);
+
+    lv_obj_t *paid = lv_obj_create(p1);  //半透明界面里建一个新的界面
+    lv_obj_set_size(paid,600,400);
     lv_obj_align(paid,LV_ALIGN_CENTER,0,0);
+    lv_obj_clear_flag(paid,LV_OBJ_FLAG_SCROLLABLE);
 
     lv_obj_t *pay_img = lv_img_create(paid);
     //lv_img_set_zoom(pay_pic,380);
@@ -97,27 +122,43 @@ void Pay_cb(lv_event_t *e){
     lv_obj_align(pay_img,LV_ALIGN_CENTER,0,0);
     lv_obj_clear_flag(pay_img,LV_OBJ_FLAG_SCROLLABLE);
 
+        lv_obj_t *btn_gogo = lv_btn_create(pay_img);//第二个已付款按钮
+        lv_obj_set_size(btn_gogo,130,60);
+        lv_obj_set_style_bg_color(btn_gogo, lv_color_hex(0x00FFB6C1), LV_PART_MAIN);//颜色
+        lv_obj_set_style_radius(btn_gogo, LV_PCT(20), LV_PART_MAIN);//圆弧
+        lv_obj_align(btn_gogo,LV_ALIGN_BOTTOM_MID,0,-20);//下面
+        
+        // 创建一个 lv_label 对象，并将其添加到 pay 按钮中
+        lv_obj_t *gogo_txt = lv_label_create(btn_gogo);// 创建标签对象
+        lv_label_set_text(gogo_txt, "Have a good day!");// 设置标签对象的文本内容
+        lv_obj_set_align(gogo_txt,LV_ALIGN_CENTER); // 将标签对象居中对齐
+        lv_obj_add_event_cb(btn_gogo,Paid_cb,LV_EVENT_CLICKED,(void *)((ListNode *)(e->user_data)));
+
+        printf("购买商品:%s\n",((ListNode *)(e->user_data))->data.pro_name);
+        printf("价格:%.1f\n",((ListNode *)(e->user_data))->data.pro_price);
+        printf("余量:%d\n",((ListNode *)(e->user_data))->data.pro_num);
+        printf("商品ID:%d\n",((ListNode *)(e->user_data))->data.pro_id);
 
 }
 
-//按下退出按钮--调用回调函数
+//按下第一层退出按钮--调用回调函数
 void BTN_EXIT_cb(lv_event_t *e)
 {
     //(lv_obj_t *)(e->user_data)
-    lv_obj_del((lv_obj_t *)(e->user_data));//删除外面的pro1对象  
-}
+    lv_obj_del(p2);//删除外面的pro1对象  
 
+}
 
 //按下了对应的商品图标--调用回调函数
 void Pro_Buy(lv_event_t *e)
 {
-    lv_obj_t *pro1 = lv_obj_create(lv_scr_act());//NULL--无父对象 默认不显示 需要手动用函数加载  lv_scr_act()--当前活跃屏幕  默认显示
-    lv_obj_set_size(pro1,800,480);
-    lv_obj_set_style_bg_color(pro1,lv_color_hex(0x00000000),LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_opa(pro1,50,LV_STATE_DEFAULT);
+    p2 = lv_obj_create(lv_scr_act());//NULL--无父对象 默认不显示 需要手动用函数加载  lv_scr_act()--当前活跃屏幕  默认显示
+    lv_obj_set_size(p2,800,480);
+    lv_obj_set_style_bg_color(p2,lv_color_hex(0x00000000),LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_opa(p2,50,LV_STATE_DEFAULT);
 
     //商品购物界面--在里面包好退出和结算
-    lv_obj_t *pro2 = lv_obj_create(pro1);//NULL--无父对象 默认不显示 需要手动用函数加载  lv_scr_act()--当前活跃屏幕  默认显示
+    lv_obj_t *pro2 = lv_obj_create(p2);//NULL--无父对象 默认不显示 需要手动用函数加载  lv_scr_act()--当前活跃屏幕  默认显示
     lv_obj_set_size(pro2,600,400);
     lv_obj_set_align(pro2,LV_ALIGN_BOTTOM_MID);
 
@@ -206,7 +247,7 @@ void Pro_Buy(lv_event_t *e)
         lv_imgbtn_set_src(btn_exit,_LV_IMGBTN_STATE_NUM,"S:/pic/close1.png",NULL,NULL);
         lv_obj_set_size(btn_exit,50,50);//设置按钮对象大小
         lv_obj_set_align(btn_exit,LV_ALIGN_TOP_RIGHT);//右上角
-        lv_obj_add_event_cb(btn_exit,BTN_EXIT_cb,LV_EVENT_PRESSED,(void *)pro1);//传入pro1目的是为了在里面删除pro1整个对象
+        lv_obj_add_event_cb(btn_exit,BTN_EXIT_cb,LV_EVENT_CLICKED,(void *)((ListNode *)(e->user_data)));//传入pro1目的是为了在里面删除pro1整个对象
         //lv_style_set_border_opa(btn_exit,LV_OPA_0);//透明度？？
 
 
@@ -220,13 +261,7 @@ void Pro_Buy(lv_event_t *e)
         lv_obj_t *pay_txt = lv_label_create(btn_pay);// 创建标签对象
         lv_label_set_text(pay_txt, "Already paid");// 设置标签对象的文本内容
         lv_obj_set_align(pay_txt,LV_ALIGN_CENTER); // 将标签对象居中对齐
-        lv_obj_add_event_cb(btn_pay,Pay_cb,LV_EVENT_PRESSED,(void *)pro2);
-
-        
-
-
-
-
+        lv_obj_add_event_cb(btn_pay,Pay_cb,LV_EVENT_CLICKED,(void *)((ListNode *)(e->user_data)));
 
 
     printf("购买商品:%s\n",((ListNode *)(e->user_data))->data.pro_name);
